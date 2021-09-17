@@ -5,6 +5,7 @@ import com.haung.architecture.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees")
-    private Employee create(@RequestBody Employee employee) {
+    private Employee create(@Valid @RequestBody Employee employee) {
         return this.employeeService.createEmployee(employee);
     }
 
