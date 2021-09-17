@@ -1,11 +1,13 @@
 package com.haung.architecture.controller;
 
+import com.haung.architecture.dto.EmployeeDTO;
 import com.haung.architecture.entity.Employee;
 import com.haung.architecture.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +25,13 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping("/employees")
-    private List<Employee> findAll() {
-        return this.employeeService.getAllEmployee();
+    private List<EmployeeDTO> findAll() {
+        List<Employee> employees = employeeService.getAllEmployee();
+        List<EmployeeDTO> employeeDTOList = new ArrayList<>();
+        for (Employee employee : employees) {
+            employeeDTOList.add(new EmployeeDTO(employee));
+        }
+        return employeeDTOList;
     }
 
     @GetMapping("/employees/{id}")
